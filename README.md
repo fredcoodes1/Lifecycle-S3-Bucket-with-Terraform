@@ -139,7 +139,4 @@ This also makes the project easy to version control and audit.
 * How Terraform manages AWS resources end to end
 * Why infrastructure as code is important for repeatable deployments
 
----
-
-This project was completed using **AWS CloudShell** and Terraform as part of hands-on cloud learning.
 
