@@ -129,15 +129,6 @@ Terraform made this setup much easier to manage. Everything is defined in code, 
 
 This also makes the project easy to version control and audit.
 
----
-
-## Project Structure
-
-```
-LAB-Managing-AWS-S3-Lifecycle-and-Glacier-Integration-with-Terraform/
-└── lifecycle/
-    └── main.tf
-```
 
 ---
 
