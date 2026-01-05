@@ -27,7 +27,7 @@ This helps reduce storage costs automatically without manual intervention.
 
 ---
 
-## 🚀 How I Set This Up
+##  How I Set This Up
 
 ### 1️⃣ Installing Terraform
 
