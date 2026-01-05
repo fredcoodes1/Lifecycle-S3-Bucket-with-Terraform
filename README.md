@@ -1,59 +1,154 @@
-# Lifecycle-S3-Bucket-with-Terraform
-Managing AWS S3 Lifecycle and Glacier Integration with Terraform
+# Managing AWS S3 Lifecycle and Glacier Integration with Terraform
 
-In this project I use Terraform to manage S3 Lifecycle and Glacier integration
+This project shows how I used Terraform to manage an Amazon S3 lifecycle policy that automatically moves data into cheaper storage over time. The main goal here was to practice infrastructure as code while also understanding how AWS handles long-term storage using Glacier.
 
-First thing I do is go to the CloudShell.
+---
 
-I then run the command: git clone https://github.com/tfutils/tfenv.git ~/.tfen which will clone the repo that hosts terraform
+##  What This Project Does
 
-Next you run the following commands which will install Terraform:
+Using Terraform, I created:
 
+* An S3 bucket with a **unique name**
+* A lifecycle rule that:
+
+  * Moves objects to **Standard-IA** after 30 days
+  * Moves objects to **Glacier** after 60 days
+
+This helps reduce storage costs automatically without manual intervention.
+
+---
+
+## Tools Used
+
+* AWS CloudShell
+* Terraform (installed via tfenv)
+* Amazon S3
+* Git
+
+---
+
+## 🚀 How I Set This Up
+
+### 1️⃣ Installing Terraform
+
+I started by opening **AWS CloudShell** and installing Terraform using `tfenv`.
+
+```bash
+git clone https://github.com/tfutils/tfenv.git ~/.tfenv
 mkdir ~/bin
-
 ln -s ~/.tfenv/bin/* ~/bin/
-
 tfenv install 1.2.5
+tfenv use 1.2.5
+```
 
-And then the final command:
+I then confirmed Terraform was installed correctly:
 
-tfenv install 1.2.5 will confirm if Terraform has been installed.
+```bash
+terraform --version
+```
 
-Press enter or click to view image in full size
+---
 
-You then run:
+### 2️⃣ Cloning the Lab Repository
+
+Next, I cloned the repository that contains the Terraform configuration:
+
+```bash
 git clone https://github.com/pluralsight-cloud/LAB-Managing-AWS-S3-Lifecycle-and-Glacier-Integration-with-Terraform.git
+```
 
-This will bring in the repo that will host the terraform file, that you will use to create your S3 bucket and the lifecycle policy.
+Then I navigated into the lifecycle directory:
 
-You then change into the new Git repo with this command: cd LAB-Managing-AWS-S3-Lifecycle-and-Glacier-Integration-with-Terraform/
+```bash
+cd LAB-Managing-AWS-S3-Lifecycle-and-Glacier-Integration-with-Terraform/lifecycle
+```
 
-Then CD into the lifecycle folder: cd lifecycle
+---
 
-Press enter or click to view image in full size
+### 3️⃣ Reviewing and Updating the Terraform File
 
-I then type the command cat main.tf to look at the file we will be using
+Before running anything, I looked through the Terraform file:
 
-Here you can see that after 30 days it’s going to transition any objects in the S3 bucket into a storage class called ‘Standard IA’ and after 60 days it will move to a storage class called “Glacier”
+```bash
+cat main.tf
+```
 
-In order for the script to work you need to change the bucket name to something that is globally unique or otherwise you will get an error.
+The lifecycle rule in this file transitions objects:
 
-To do that you want to run the command nano main.tf
+* To **Standard-IA** after 30 days
+* To **Glacier** after 60 days
 
-Press enter or click to view image in full size
+Because S3 bucket names must be globally unique, I updated the bucket name in the file:
 
-Now that’s done we can actually run the script!
+```bash
+nano main.tf
+```
 
-The first command is ‘terraform init’ which will create a working directory
+---
 
-Then the next command is ‘terraform apply’ when you run this you will see a message prompting you to enter a value in which you will type ‘yes’ and then type enter.
+### 4️ Deploying the Infrastructure
 
-Press enter or click to view image in full size
+Once everything was ready, I initialised Terraform:
 
-With that you should have your S3 bucket created
+```bash
+terraform init
+```
 
-If you go to S3 buckets, you shall see the bucket your created and go to management tab go on archive and then you should be to see the lifecycle rule.
+Then I applied the configuration:
 
-Press enter or click to view image in full size
+```bash
+terraform apply
+```
 
-Terraform benefits the lifecycle by making infrastructure predictable, safe to change, easy to scale, and easy to retire all while keeping it version controlled and auditable.
+When prompted, I typed `yes` to confirm.
+
+---
+
+## Verifying the Setup
+
+After Terraform finished, I:
+
+1. Opened the AWS Console
+2. Navigated to **S3**
+3. Selected the newly created bucket
+4. Went to the **Management** tab
+5. Checked the **Lifecycle rules** section
+
+The lifecycle policy was visible and correctly configured.
+
+---
+
+## Why Terraform Was Useful Here
+
+Terraform made this setup much easier to manage. Everything is defined in code, which means:
+
+* The infrastructure is predictable
+* Changes are easy to track
+* Resources can be updated or removed safely
+* The setup can be reused or shared
+
+This also makes the project easy to version control and audit.
+
+---
+
+## Project Structure
+
+```
+LAB-Managing-AWS-S3-Lifecycle-and-Glacier-Integration-with-Terraform/
+└── lifecycle/
+    └── main.tf
+```
+
+---
+
+## 📘 What I Learned
+
+* How S3 lifecycle policies work in practice
+* How to transition data between storage classes automatically
+* How Terraform manages AWS resources end to end
+* Why infrastructure as code is important for repeatable deployments
+
+---
+
+This project was completed using **AWS CloudShell** and Terraform as part of hands-on cloud learning.
+
