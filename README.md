@@ -132,7 +132,7 @@ This also makes the project easy to version control and audit.
 
 ---
 
-## 📘 What I Learned
+## What I Learned
 
 * How S3 lifecycle policies work in practice
 * How to transition data between storage classes automatically
